@@ -1,0 +1,23 @@
+{
+  "name": "compare-numbers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "compare.js",
+  "dependencies": {
+    "chai": "^3.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davids-pup/Compare-Numbers.git"
+  },
+  "author": "David Stanciu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davids-pup/Compare-Numbers/issues"
+  },
+  "homepage": "https://github.com/davids-pup/Compare-Numbers#readme"
+}

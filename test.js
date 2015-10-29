@@ -1,5 +1,3 @@
-/* global describe:true, before:true, after:true, it:true, global:true, process:true */
-
 var compare = require('./compare.js'),
   expect = require('chai').expect,
   collection = [];
