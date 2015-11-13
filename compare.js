@@ -3,7 +3,8 @@ var collection = [],
   x,
   i,
   min = 1,
-  max = 50;
+  max = 50,
+  fs = require('fs');
 
 len = Math.floor(Math.random() * (10));
 
@@ -31,3 +32,43 @@ function compareCollection(x) {
 function sortArray(a, b) {
     return b - a;
 }
+
+fs.appendFile("c:/Logs/compare.log", collection, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+});
+
+fs.appendFile("c:/Logs/ayyyy.log", collection, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+});
+
+fs.appendFile("c:/Logs/test.log", collection, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+});
+
+fs.appendFile("c:/Logs/testingagain.log", collection, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+});
+
+fs.appendFile("c:/Logs/anothertest.log", collection, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+});
