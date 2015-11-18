@@ -18,7 +18,7 @@ public class LinkedList
         }
     }
 
-    public void AddFirst(Object data)
+    public void AddToHead(Object data)
     {
         Node toAdd = new Node();
 
@@ -28,7 +28,7 @@ public class LinkedList
         head = toAdd;
     }
 
-    public void AddLast(Object data)
+    public void AddToEnd(Object data)
     {
         if (head == null)
         {
@@ -47,7 +47,6 @@ public class LinkedList
             {
                 current = current.next;
             }
-
             current.next = toAdd;
         }
     }
@@ -103,12 +102,20 @@ public class LinkedList
 
 	public void Reverse()
 	{
-		// Reverse LinkedList
 		if(head == null || head.next == null) {
 			break;
 		}
 		else {
-			// reverse
+			Node current = head;
+			Node previous = null;
+			while(current != null)
+			{
+				Node temp = current.next;
+				current.next = previous;
+				previous = current;
+				current = temp;
+			}
+			head = previous;
 		}
 	}
 }
@@ -117,23 +124,23 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Add First:");
-        LinkedList myList1 = new LinkedList();
+        Console.WriteLine("Add To Head:");
+        LinkedList awesomeList = new LinkedList();
 
-        myList1.AddFirst("Hello");
-        myList1.AddFirst("Magical");
-        myList1.AddFirst("World");
-        myList1.printAllNodes();
+        awesomeList.AddToHead("Hello");
+        awesomeList.AddToHead("I'm");
+        awesomeList.AddToHead("Batman");
+        awesomeList.printAllNodes();
 
         Console.WriteLine();
 
-        Console.WriteLine("Add Last:");
-        LinkedList myList2 = new LinkedList();
+        Console.WriteLine("Add To End:");
+        LinkedList lameList = new LinkedList();
 
-        myList2.AddLast("Hello");
-        myList2.AddLast("Magical");
-        myList2.AddLast("World");
-        myList2.printAllNodes();
+        lameList.AddToEnd("Morning");
+        lameList.AddToEnd("Silly");
+        lameList.AddToEnd("Head");
+        lameList.printAllNodes();
 
         Console.ReadLine();
     }
