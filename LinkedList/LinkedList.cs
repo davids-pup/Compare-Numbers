@@ -53,14 +53,9 @@ public class LinkedList
         }
     }
 
-	public void Remove(Object data)
+	public void Remove(Object data, LinkedList list)
 	{
-        if (head == null)
-        {
-            Console.WriteLine("List is empty");
-        }
-        else
-        {
+        if(list.Search(data)) {
             if (head.data == data)
             {
                 head = head.next;
@@ -75,9 +70,16 @@ public class LinkedList
                     previous = current;
                     current = current.next;
                 }
-                previous.next = current.next;
-                current = null;
-                Console.WriteLine("{0} has been removed from list", data);
+                if (current.data == data)
+                {
+                    previous.next = current.next;
+                    current = null;
+                    Console.WriteLine("{0} has been removed from list", data);
+                }
+                else
+                {
+                    Console.WriteLine("{0} not found in list", data);
+                }
             }
         }
 	}
@@ -138,6 +140,44 @@ public class LinkedList
             head = previous;
         }
 	}
+
+    public void TestFunctions(LinkedList list)
+    {
+        // put tests here
+        list.printAllNodes();
+        Console.WriteLine();
+
+        var numberOfNodes = list.Count();
+        Console.WriteLine("Number of nodes in {0} is: {1}", list, numberOfNodes);
+
+        var dataToFind = "Hello";
+        if (list.Search(dataToFind))
+        {
+            Console.WriteLine("Found {0} in {1}", dataToFind, list);
+        }
+        else
+        {
+            Console.WriteLine("Couldn't find {0} in {1}", dataToFind, list);
+        }
+
+        list.Remove("Hello", list);
+        dataToFind = "Hello";
+        if (list.Search(dataToFind))
+        {
+            Console.WriteLine("Found {0} in {1}", dataToFind, list);
+        }
+        else
+        {
+            Console.WriteLine("Couldn't find {0} in {1}", dataToFind, list);
+        }
+
+        list.Reverse();
+
+        numberOfNodes = list.Count();
+        Console.WriteLine("Number of nodes in {0} is: {1}", list, numberOfNodes);
+
+        list.printAllNodes();
+    }
 }
 
 class Program
@@ -147,36 +187,11 @@ class Program
         Console.WriteLine("Add To Head:");
         LinkedList awesomeList = new LinkedList();
 
-        awesomeList.AddToHead("Batman");
-        awesomeList.AddToHead("I'm");
         awesomeList.AddToHead("Hello");
-        awesomeList.printAllNodes();
+        awesomeList.AddToHead("I'm");
+        awesomeList.AddToHead("Batman");
 
-        Console.WriteLine();
-
-        var numberOfNodes = awesomeList.Count();
-        Console.WriteLine("Number of nodes in awesomeList is: {0}", numberOfNodes);
-
-        var dataToFind = "Hello";
-        if (awesomeList.Search(dataToFind))
-        {
-            Console.WriteLine("Found {0} in awesomeList", dataToFind);
-        }
-        else
-        {
-            Console.WriteLine("Couldn't find {0} in awesomeList", dataToFind);
-        }
-
-        awesomeList.Remove("Hello");
-        dataToFind = "Hello";
-        if (awesomeList.Search(dataToFind))
-        {
-            Console.WriteLine("Found {0} in awesomeList", dataToFind);
-        }
-        else
-        {
-            Console.WriteLine("Couldn't find {0} in awesomeList", dataToFind);
-        }
+        awesomeList.TestFunctions(awesomeList);
 
         Console.WriteLine("Add To End:");
         LinkedList lameList = new LinkedList();
@@ -184,10 +199,10 @@ class Program
         lameList.AddToEnd("Morning");
         lameList.AddToEnd("Silly");
         lameList.AddToEnd("Head");
-        lameList.printAllNodes();
 
-        lameList.Reverse();
-        lameList.printAllNodes();
+        lameList.TestFunctions(lameList);
+
+        Console.WriteLine("Finished Testing");
 
         Console.ReadLine();
     }
