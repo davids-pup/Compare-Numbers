@@ -1,3 +1,5 @@
+using System;
+
 public class Node
 {
     public Node next;
@@ -51,28 +53,48 @@ public class LinkedList
         }
     }
 
-	public void Remove(Node nodeToRemove)
+	public void Remove(Object data)
 	{
-		Node current = head;
-		while (current.next != nodeToRemove)
-		{
-			current = current.next;
-		}
-		current = nodeToRemove.next;
-		nodeToRemove = null;
+        if (head == null)
+        {
+            Console.WriteLine("List is empty");
+        }
+        else
+        {
+            if (head.data == data)
+            {
+                head = head.next;
+                Console.WriteLine("{0} has been removed from list", data);
+            }
+            else
+            {
+                Node current = head;
+                Node previous = null;
+                while (current.data != data)
+                {
+                    previous = current;
+                    current = current.next;
+                }
+                previous.next = current.next;
+                current = null;
+                Console.WriteLine("{0} has been removed from list", data);
+            }
+        }
 	}
 
 	public bool Search(Object data)
 	{
 		if(head == null)
 		{
+            Console.WriteLine("Head of list is null");
 			return false;
 		}
 		else {
 			Node current = head;
-			while (current.next != null)
+			while (current != null)
             {
-				if(current.data == data)
+                Console.WriteLine("Comparing {0} with {1}", current.data, data);
+				if(String.Equals(current.data, data))
 				{
 					return true;
 				}
@@ -86,7 +108,7 @@ public class LinkedList
 	{
 		var count = 0;
 		if (head == null) {
-			break;
+			return count;
 		}
 		else {
 			Node current = head;
@@ -102,21 +124,19 @@ public class LinkedList
 
 	public void Reverse()
 	{
-		if(head == null || head.next == null) {
-			break;
-		}
-		else {
-			Node current = head;
-			Node previous = null;
-			while(current != null)
-			{
-				Node temp = current.next;
-				current.next = previous;
-				previous = current;
-				current = temp;
-			}
-			head = previous;
-		}
+        if (!(head == null || head.next == null))
+        {
+            Node current = head;
+            Node previous = null;
+            while (current != null)
+            {
+                Node temp = current.next;
+                current.next = previous;
+                previous = current;
+                current = temp;
+            }
+            head = previous;
+        }
 	}
 }
 
@@ -127,12 +147,36 @@ class Program
         Console.WriteLine("Add To Head:");
         LinkedList awesomeList = new LinkedList();
 
-        awesomeList.AddToHead("Hello");
-        awesomeList.AddToHead("I'm");
         awesomeList.AddToHead("Batman");
+        awesomeList.AddToHead("I'm");
+        awesomeList.AddToHead("Hello");
         awesomeList.printAllNodes();
 
         Console.WriteLine();
+
+        var numberOfNodes = awesomeList.Count();
+        Console.WriteLine("Number of nodes in awesomeList is: {0}", numberOfNodes);
+
+        var dataToFind = "Hello";
+        if (awesomeList.Search(dataToFind))
+        {
+            Console.WriteLine("Found {0} in awesomeList", dataToFind);
+        }
+        else
+        {
+            Console.WriteLine("Couldn't find {0} in awesomeList", dataToFind);
+        }
+
+        awesomeList.Remove("Hello");
+        dataToFind = "Hello";
+        if (awesomeList.Search(dataToFind))
+        {
+            Console.WriteLine("Found {0} in awesomeList", dataToFind);
+        }
+        else
+        {
+            Console.WriteLine("Couldn't find {0} in awesomeList", dataToFind);
+        }
 
         Console.WriteLine("Add To End:");
         LinkedList lameList = new LinkedList();
@@ -140,6 +184,9 @@ class Program
         lameList.AddToEnd("Morning");
         lameList.AddToEnd("Silly");
         lameList.AddToEnd("Head");
+        lameList.printAllNodes();
+
+        lameList.Reverse();
         lameList.printAllNodes();
 
         Console.ReadLine();
