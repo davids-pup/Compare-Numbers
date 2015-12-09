@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 public class Node
 {
@@ -9,8 +11,15 @@ public class Node
 public class LinkedList
 {
     private Node head;
+    
+    LinkedList<int> numbers = new LinkedList<int>();
+    
+    public LinkedList(LinkedList<int> _numbers)
+    {
+        this.numbers = _numbers;
+    }
 
-    public void printAllNodes()
+    public void PrintAllNodes()
     {
         Node current = head;
         while (current != null)
@@ -19,138 +28,80 @@ public class LinkedList
             current = current.next;
         }
     }
-
-    public void AddToHead(Object data)
+    
+    public void AddToHead(LinkedList<int> numbers, int data)
     {
-        Node toAdd = new Node();
-
-        toAdd.data = data;
-        toAdd.next = head;
-
-        head = toAdd;
+        numbers.AddFirst(data);
+    }
+    
+    public void AddToEnd(int data)
+    {
+        numbers.AddLast(data);
     }
 
-    public void AddToEnd(Object data)
-    {
-        if (head == null)
+	public void Remove(int data)
+	{
+        numbers.Remove(data);
+	}
+    
+    public bool Search(int data)
+	{
+		if(numbers.Find(data) != null)
         {
-            head = new Node();
-
-            head.data = data;
-            head.next = null;
+            return true;
         }
-        else
-        {
-            Node toAdd = new Node();
-            toAdd.data = data;
-
-            Node current = head;
-            while (current.next != null)
-            {
-                current = current.next;
-            }
-            current.next = toAdd;
+        else {
+            return false;
         }
+	}
+    
+    public int Count()
+	{
+		return numbers.Count;
+	}
+    
+    public void Reverse()
+	{
+        numbers.Reverse<int>();
+	}
+
+
+    static void Main(string[] args)
+    {   
+        Console.WriteLine("Add To Head:");
+        LinkedList<int> awesomeList = new LinkedList<int>();
+
+        awesomeList.AddToHead(12);
+        awesomeList.AddToHead(99);
+        awesomeList.AddToHead(86);
+
+        awesomeList.TestFunctions(awesomeList);
+
+        Console.WriteLine("Add To End:");
+        LinkedList<int> lameList = new LinkedList<int>();
+
+        lameList.AddToEnd(13);
+        lameList.AddToEnd(42);
+        lameList.AddToEnd(71);
+
+        lameList.TestFunctions(lameList);
+
+        Console.WriteLine("Finished Testing");
+
+        Console.ReadLine();
     }
-
-	public void Remove(Object data, LinkedList list)
-	{
-        if(list.Search(data)) {
-            if (head.data == data)
-            {
-                head = head.next;
-                Console.WriteLine("{0} has been removed from list", data);
-            }
-            else
-            {
-                Node current = head;
-                Node previous = null;
-                while (current.data != data)
-                {
-                    previous = current;
-                    current = current.next;
-                }
-                if (current.data == data)
-                {
-                    previous.next = current.next;
-                    current = null;
-                    Console.WriteLine("{0} has been removed from list", data);
-                }
-                else
-                {
-                    Console.WriteLine("{0} not found in list", data);
-                }
-            }
-        }
-	}
-
-	public bool Search(Object data)
-	{
-		if(head == null)
-		{
-            Console.WriteLine("Head of list is null");
-			return false;
-		}
-		else {
-			Node current = head;
-			while (current != null)
-            {
-                Console.WriteLine("Comparing {0} with {1}", current.data, data);
-				if(String.Equals(current.data, data))
-				{
-					return true;
-				}
-                current = current.next;
-            }
-		}
-		return false;
-	}
-
-	public int Count()
-	{
-		var count = 0;
-		if (head == null) {
-			return count;
-		}
-		else {
-			Node current = head;
-			count = 1;
-			while (current.next != null)
-            {
-				count += 1;
-                current = current.next;
-            }
-		}
-		return count;
-	}
-
-	public void Reverse()
-	{
-        if (!(head == null || head.next == null))
-        {
-            Node current = head;
-            Node previous = null;
-            while (current != null)
-            {
-                Node temp = current.next;
-                current.next = previous;
-                previous = current;
-                current = temp;
-            }
-            head = previous;
-        }
-	}
-
-    public void TestFunctions(LinkedList list)
+    
+    
+    public void TestFunctions(LinkedList<int> list)
     {
         // put tests here
-        list.printAllNodes();
+        list.PrintAllNodes();
         Console.WriteLine();
 
         var numberOfNodes = list.Count();
         Console.WriteLine("Number of nodes in {0} is: {1}", list, numberOfNodes);
 
-        var dataToFind = "Hello";
+        var dataToFind = 7;
         if (list.Search(dataToFind))
         {
             Console.WriteLine("Found {0} in {1}", dataToFind, list);
@@ -160,8 +111,8 @@ public class LinkedList
             Console.WriteLine("Couldn't find {0} in {1}", dataToFind, list);
         }
 
-        list.Remove("Hello", list);
-        dataToFind = "Hello";
+        list.Remove(7);
+        dataToFind = 7;
         if (list.Search(dataToFind))
         {
             Console.WriteLine("Found {0} in {1}", dataToFind, list);
@@ -176,34 +127,6 @@ public class LinkedList
         numberOfNodes = list.Count();
         Console.WriteLine("Number of nodes in {0} is: {1}", list, numberOfNodes);
 
-        list.printAllNodes();
-    }
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Console.WriteLine("Add To Head:");
-        LinkedList awesomeList = new LinkedList();
-
-        awesomeList.AddToHead("Hello");
-        awesomeList.AddToHead("I'm");
-        awesomeList.AddToHead("Batman");
-
-        awesomeList.TestFunctions(awesomeList);
-
-        Console.WriteLine("Add To End:");
-        LinkedList lameList = new LinkedList();
-
-        lameList.AddToEnd("Morning");
-        lameList.AddToEnd("Silly");
-        lameList.AddToEnd("Head");
-
-        lameList.TestFunctions(lameList);
-
-        Console.WriteLine("Finished Testing");
-
-        Console.ReadLine();
+        list.PrintAllNodes();
     }
 }
