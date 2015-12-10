@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Node
 {
@@ -8,15 +9,35 @@ public class Node
     public Object data;
 }
 
-public class LinkedList
+public class LinkedList<T> : IEnumerable<T>, IEnumerable
 {
     private Node head;
     
-    LinkedList<int> numbers = new LinkedList<int>();
+    LinkedList<int> numbers;
     
-    public LinkedList(LinkedList<int> _numbers)
+    IEnumerator<T> IEnumerable<T>.GetEnumerator()
     {
-        this.numbers = _numbers;
+        return (IEnumerator<T>) GetEnumerator();
+    }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return (IEnumerator) GetEnumerator();
+    }
+
+    private IEnumerator GetEnumerator()
+    {
+        //return something here
+    }
+
+
+    // public LinkedList(LinkedList<int> _numbers)
+    // {
+    //     this.numbers = _numbers;
+    // }
+
+    public LinkedList(IEnumerable<T> collection)
+    {
+        //do something
     }
 
     public void PrintAllNodes()
@@ -29,9 +50,10 @@ public class LinkedList
         }
     }
     
-    public void AddToHead(LinkedList<int> numbers, int data)
+    public void AddToHead(int data)
     {
-        numbers.AddFirst(data);
+        var numToAdd = 7;
+        numbers.AddFirst(numToAdd);
     }
     
     public void AddToEnd(int data)
@@ -57,40 +79,13 @@ public class LinkedList
     
     public int Count()
 	{
-		return numbers.Count;
+		return numbers.Count();
 	}
     
     public void Reverse()
 	{
         numbers.Reverse<int>();
 	}
-
-
-    static void Main(string[] args)
-    {   
-        Console.WriteLine("Add To Head:");
-        LinkedList<int> awesomeList = new LinkedList<int>();
-
-        awesomeList.AddToHead(12);
-        awesomeList.AddToHead(99);
-        awesomeList.AddToHead(86);
-
-        awesomeList.TestFunctions(awesomeList);
-
-        Console.WriteLine("Add To End:");
-        LinkedList<int> lameList = new LinkedList<int>();
-
-        lameList.AddToEnd(13);
-        lameList.AddToEnd(42);
-        lameList.AddToEnd(71);
-
-        lameList.TestFunctions(lameList);
-
-        Console.WriteLine("Finished Testing");
-
-        Console.ReadLine();
-    }
-    
     
     public void TestFunctions(LinkedList<int> list)
     {
@@ -128,5 +123,33 @@ public class LinkedList
         Console.WriteLine("Number of nodes in {0} is: {1}", list, numberOfNodes);
 
         list.PrintAllNodes();
+    }
+}
+
+public class Program
+{
+    static void Main(string[] args)
+    {   
+        Console.WriteLine("Add To Head:");
+        int[] randomNumbers = {1, 3, 5, 7, 9, 0, 8, 6, 4, 2};
+        LinkedList<int> awesomeList = new LinkedList<int>();
+        awesomeList.AddToHead(12);
+        awesomeList.AddToHead(99);
+        awesomeList.AddToHead(86);
+
+        awesomeList.TestFunctions(awesomeList);
+
+        Console.WriteLine("Add To End:");
+        LinkedList<int> lameList = new LinkedList<int>();
+
+        lameList.AddToEnd(13);
+        lameList.AddToEnd(42);
+        lameList.AddToEnd(71);
+
+        lameList.TestFunctions(lameList);
+
+        Console.WriteLine("Finished Testing");
+
+        Console.ReadLine();
     }
 }
