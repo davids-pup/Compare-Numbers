@@ -11,3 +11,9 @@ test.js is the testing file, which checks for:
 - array of length 1
 - array of strings instead of integers
 - array length > 1 and filled with integers
+
+# Linked List
+
+## Description
+Exercise for being able to implement a number of different functions with Linked Lists without using the framework version.
+Functions include add, remove, search, count, and reverse.
